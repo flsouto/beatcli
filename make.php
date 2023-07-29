@@ -13,7 +13,9 @@ $len = $params['l'] ?? .15;
 
 $pool = [];
 foreach(range('a','z') as $k){
-    $pool[$k] = Sampler::select($config['ipt_glob'])
+    $smps = glob($config['ipt_glob'],GLOB_BRACE);
+    $smps = $smps[array_rand($smps)];
+    $pool[$k] = Sampler::select($smps)
             ->pick($len)
             ->mod('fade .015 0 .015');
 }
