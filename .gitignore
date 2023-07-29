@@ -1,5 +1,5 @@
-.swp
+*.swp
 in
 out
-state.wav
+stage.wav
 config.php
