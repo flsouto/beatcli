@@ -1,0 +1,3 @@
+alias make='php make.php '
+alias save='php save.php '
+alias mix='php mix.php '
