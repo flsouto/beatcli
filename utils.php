@@ -50,3 +50,46 @@ function first_segment(...$loops){
 function sampler($f){
     return new Sampler($f);
 }
+
+function get_fxs(){
+    return [
+        'synth' => function($s){
+            $types = ['sin','square','triangle','sawtooth','noise','whitenoise'];
+            $type = $types[array_rand($types)];
+            $mods = ['fmod','amod'];
+            $mod = $mods[array_rand($mods)];
+            $x = mt_rand(50,100);
+            $y = mt_rand(50,100);
+            $s->mod("synth $type $mod $x $y");
+        },
+        'hlpass' => function($s){
+            $type = mt_rand(0,1)?'highpass':'lowpass';
+            $s->mod($type." ".mt_rand(200,4000));
+        },
+        'reverb' => function($s){
+            $s->mod('reverb');
+        },
+        'pitch' => function($s){
+            $s->mod('pitch '.mt_rand(-100,100));
+        },
+        'reverse' => function($s){
+            $s->mod('reverse');
+        },
+        'chop' => function($s){
+            $s->chop(mt_rand(2,666));
+        },
+        'flanger' => function($s){
+            $s->mod('flanger');
+        }
+    ];
+}
+
+function apply_fx($s){
+    $fx = get_fxs();
+    $keys = array_keys($fx);
+    shuffle($keys);
+    $keys = array_slice($keys, 1, mt_rand(1,count($keys)));
+    foreach($keys as $k){
+        $fx[$k]($s);
+    }
+}
