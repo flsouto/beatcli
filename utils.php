@@ -46,3 +46,7 @@ function first_segment(...$loops){
         $loop->cut(0,'1/4');
     }
 }
+
+function sampler($f){
+    return new Sampler($f);
+}
