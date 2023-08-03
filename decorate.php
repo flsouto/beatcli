@@ -15,7 +15,7 @@ foreach(glob(__DIR__."/out/*.wav") as $i => $f){
     $loop = sampler($f);
     $len = $loop->len();
     $pick = $len / 8;
-    $mix = $mask->pick($pick)->mod('fade .05 0 .05')->x(4)->resize($len);
-    $loop->mix($mix, false);
+    $mix = $mask->pick($pick)->mod('fade .005 0 .005 gain -8')->x(4)->resize($len);
+    $loop->mix($mix, true);
     $loop->save($out. "/".basename($f));
 }

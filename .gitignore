@@ -1,5 +1,6 @@
 *.swp
 in
 out
-stage.wav
+*.wav
+*.zip
 config.php
