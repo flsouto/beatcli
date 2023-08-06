@@ -10,20 +10,23 @@ $seed = (int)date('Ymd').($params['s']??1);
 srand($seed);
 
 $len = $params['l'] ?? .15;
+$pattern = str_split($params['p']);
 
 $pool = [];
+
 foreach(range('a','z') as $k){
+    if(!in_array($k, $pattern)) continue;
+    srand($seed + ord($k));
     $smps = glob($config['ipt_glob'],GLOB_BRACE);
     $smps = $smps[array_rand($smps)];
     $pool[$k] = Sampler::select($smps)
             ->pick($len)
-            ->mod('fade .015 0 .015');
+            ->mod("fade .008 0 .008 rate 44100");
 }
 
-$pool['_'] = $pool['a']()->mod('gain -100');
+$pool['_'] = Sampler::silence($len);
 
 $out = Sampler::silence(0);
-$pattern = str_split($params['p']);
 
 for($i=0;$i<count($pattern);$i++){
     $k = $pattern[$i];
@@ -37,7 +40,7 @@ for($i=0;$i<count($pattern);$i++){
 
 $mod = 'speed .7 '.($params['m']??'');
 
-$out = $out->mod($mod)->x(4);
+$out = $out->x(4)->mod($mod);
 
 $out->save($f=__DIR__."/stage.wav");
 
