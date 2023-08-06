@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__."/utils.php");
 use FlSouto\Sampler;
 parse_str(implode('&',$argv), $params);
 if(empty($params['p'])) die("missing p(attern) parameter\n");
@@ -11,17 +12,18 @@ srand($seed);
 
 $len = $params['l'] ?? .15;
 $pattern = str_split($params['p']);
-
 $pool = [];
-
-foreach(range('a','z') as $k){
-    if(!in_array($k, $pattern)) continue;
+foreach($pattern as $k){
+    if(isset($pool[$k])) continue;
     srand($seed + ord($k));
     $smps = glob($config['ipt_glob'],GLOB_BRACE);
     $smps = $smps[array_rand($smps)];
     $pool[$k] = Sampler::select($smps)
             ->pick($len)
-            ->mod("fade .008 0 .008 rate 44100");
+            ->mod('fade .015 0 .015');
+    if(strtoupper($k)==$k){
+        apply_fx($pool[$k]);
+    }
 }
 
 $pool['_'] = Sampler::silence($len);
