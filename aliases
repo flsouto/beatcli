@@ -1,3 +1,5 @@
 alias make='php make.php '
 alias save='php save.php '
 alias mix='php mix.php '
+alias ambify='php ambify.php '
+alias decorate='php decorate.php '

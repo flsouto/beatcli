@@ -22,7 +22,7 @@ foreach($pattern as $k){
             ->pick($len)
             ->mod('fade .015 0 .015');
     if(strtoupper($k)==$k){
-        apply_fx($pool[$k]);
+        get_fxs()['synth']($pool[$k]);
     }
 }
 
@@ -36,6 +36,10 @@ for($i=0;$i<count($pattern);$i++){
     if(isset($pattern[$i-1])){
         $p = $pool[$pattern[$i-1]];
         $s = $s()->mix($p()->mod('gain -5'));
+    }
+    if(isset($pattern[$i-2])){
+        $p = $pool[$pattern[$i-2]];
+        $s = $s()->mix($p()->mod('gain -10'));
     }
     $out->add($s);
 }
