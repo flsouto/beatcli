@@ -76,7 +76,7 @@ function get_fxs(){
             $s->mod('reverse');
         },
         'chop' => function($s){
-            $s->chop(mt_rand(2,666));
+            $s->chop(mt_rand(2,8));
         },
         'flanger' => function($s){
             $s->mod('flanger');
