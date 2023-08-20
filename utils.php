@@ -10,10 +10,14 @@ function cleanup_sampler_tmp_dir(){
 }
 
 function mixers(array $options = []){
+    global $config;
     $files = glob(__DIR__."/mixers/*.php");
     $mixers = [];
     foreach($files as $f){
         $key = str_replace('.php','',basename($f));
+        if(!empty($config['use_mixers']) && !in_array($key, $config['use_mixers'])){
+            continue;
+        }
         $mixers[$key] = require $f;
         if(!empty($options['max_args'])){
             $reflection = new ReflectionFunction($mixers[$key]);
