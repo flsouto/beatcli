@@ -14,7 +14,7 @@ $loop1 = new Sampler($loops[0]);
 $loop2 = new Sampler($loops[1]);
 $loop3 = new Sampler($loops[2]);
 
-$result = $func($loop1, $loop2, $loop3);
+$result = $func($loop1, $loop2,$loop3);
 $result->maxgain();
 $result->save(__DIR__."/stage.wav");
 

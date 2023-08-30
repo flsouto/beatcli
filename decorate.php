@@ -13,6 +13,7 @@ foreach(glob(__DIR__."/out/*.wav") as $i => $f){
     $mask = FlSouto\Sampler::select($argv[1]);
     echo "At $i\n";
     $loop = sampler($f);
+    if($loop->len() < 12) continue;
     $len = $loop->len();
     $pick = $len / 16;
     $mix = $mask->pick($pick)->mod('fade .005 0 .005 gain -8')->x(4)->resize($len);
