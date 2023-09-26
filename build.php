@@ -21,8 +21,8 @@ $out->add($s1()->mix(s(2)->x(4)->resize($len),false));
 $s3 = s(2)->x(2)->resize($len);
 $out->add($s3);
 
-$out->add($s3()->mix(s(9)->x(4)->resize($len),false));
-$out->add($s3()->mod('oops')->mix(s(11)->resize($len),false));
+$out->add($s3()->mix(s(10)->x(4)->resize($len),false));
+$out->add($s3()->mod('oops')->mix(s(12)->mod('gain -6')->resize($len),false));
 
 $final = $s3()->mod('speed .5 lowpass 500');
 $final->part('1/2')->fade(0,-40)->sync();

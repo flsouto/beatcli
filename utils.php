@@ -3,6 +3,8 @@ use FlSouto\Sampler;
 $config = require(__DIR__."/config.php");
 require_once($config['smp_path']);
 
+const RECURSIVE_MIXERS = ['chaos','mixfuse'];
+
 function cleanup_sampler_tmp_dir(){
 	$config = require(__DIR__."/config.php");
 	$dir = dirname($config['sampler_path']).'/tmp_dir/';
