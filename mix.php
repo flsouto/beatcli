@@ -2,6 +2,7 @@
 use FlSouto\Sampler;
 require_once(__DIR__."/utils.php");
 
+if(($argv[1]??'')=='rand') $argv[1] = null;
 $mixer = $argv[1] ?? array_rand(mixers());
 echo "Using mixer: $mixer\n";
 

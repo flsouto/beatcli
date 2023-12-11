@@ -17,6 +17,9 @@ function mixers(array $options = []){
     $mixers = [];
     foreach($files as $f){
         $key = str_replace('.php','',basename($f));
+        if(substr($key,0,1)=='_'){
+            continue;
+        }
         if(!empty($config['use_mixers']) && !in_array($key, $config['use_mixers'])){
             continue;
         }
