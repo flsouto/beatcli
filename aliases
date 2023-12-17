@@ -22,3 +22,11 @@ alias x4='smp stage.wav x=4'
 alias x4p='smp stage.wav x=4 play'
 alias x4s='smp stage.wav x=4 save'
 alias b='m _bit "pool/*.wav"'
+ytdl() { 
+    rm .ytdl -Rf 2>/dev/null
+    mkdir .ytdl
+    pytube -a -t .ytdl $1
+    ffmpeg -i .ytdl/*.mp4 -ac 2 -f wav .ytdl/out.wav
+    echo $1 >> ytdl_logs
+}
+
