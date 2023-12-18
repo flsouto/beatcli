@@ -19,6 +19,8 @@ Key.R2 = "Button 7"
 Key.L1 = "Button 4"
 Key.START = "Button 9"
 Key.SELECT = "Button 8"
+Key.LEFT = "Hat 0 [Left]"
+Key.RIGHT = "Hat 0 [Right]"
 
 proc = None
 
@@ -85,6 +87,11 @@ def key_received(input):
         case Key.CIRCLE:
             pub('amb')
             next()
+        case Key.RIGHT:
+            print("test")
+            run2("sox","stage.wav","tmp.wav","repeat","1").wait()
+            run2("mv","tmp.wav","stage.wav").wait()
+            run("play","stage.wav")
         case default:
             print("Unmapped key: ",input)
 

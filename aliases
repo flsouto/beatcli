@@ -29,4 +29,5 @@ ytdl() {
     ffmpeg -i .ytdl/*.mp4 -ac 2 -f wav .ytdl/out.wav
     echo $1 >> ytdl_logs
 }
-
+alias joy='python3 joystick.py'
+alias cp_pub='php cp_pub.php'
