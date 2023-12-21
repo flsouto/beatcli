@@ -17,10 +17,13 @@ Key.TRIANGLE = "Button 0"
 Key.R1 = "Button 5"
 Key.R2 = "Button 7"
 Key.L1 = "Button 4"
+Key.L2 = "Button 6"
 Key.START = "Button 9"
 Key.SELECT = "Button 8"
 Key.LEFT = "Hat 0 [Left]"
 Key.RIGHT = "Hat 0 [Right]"
+Key.DOWN = "Hat 0 [Down]"
+Key.UP = "Hat 0 [Up]"
 
 proc = None
 
@@ -59,9 +62,22 @@ def pub(prefix=None):
     run2("php", "save.php",env=env).wait()
     run2("php", "pub.php",env=env).wait()
 
+def save(prefix=None):
+    env = os.environ.copy()
+    if prefix:
+        env['PREFIX'] = prefix
+    run2("php", "save.php",env=env).wait()
+
+def mod(*fx):
+    run2("sox","stage.wav","tmp.wav",*fx).wait()
+    run2("mv","tmp.wav","stage.wav").wait()
+
+def play():
+    run("play", "stage.wav")
+
 def key_received(input):
 
-    global proc
+    global proc, curr_mode
 
     Key.enabled = not Key.enabled
 
@@ -74,24 +90,31 @@ def key_received(input):
             if proc and not proc.poll():
                 abort()
             else:
-                run("play", "stage.wav")
+                play()
         case Key.X:
-            run2("php", "save.php").wait()
+            save()
             next()
         case Key.SQUARE:
             pub()
             next()
         case Key.TRIANGLE:
-            pub('exc')
+            if curr_mode == 1:
+                pub('exc')
+            else:
+                save('excs')
             next()
         case Key.CIRCLE:
             pub('amb')
             next()
         case Key.RIGHT:
-            print("test")
-            run2("sox","stage.wav","tmp.wav","repeat","1").wait()
-            run2("mv","tmp.wav","stage.wav").wait()
-            run("play","stage.wav")
+            mod("repeat", "1")
+            play()
+        case Key.DOWN:
+            mod("gain", "-5")
+            play()
+        case Key.UP:
+            mod("gain", "5")
+            play()
         case default:
             print("Unmapped key: ",input)
 
