@@ -53,6 +53,7 @@ def next(mode = None):
             curr_mode = 1
         case 2:
             run("php", "mix.php", "_bit", "chop/*.wav")
+#            run("php", "mix.php", "_bit2", "../looploader/queue/*.wav")
             curr_mode = 2
 
 def pub(prefix=None):
