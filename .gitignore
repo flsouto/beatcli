@@ -6,3 +6,5 @@ out
 config.php
 *.save
 *.mp3
+.ytdl
+realiases
