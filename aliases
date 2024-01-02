@@ -25,9 +25,10 @@ alias b='m _bit "pool/*.wav"'
 ytdl() { 
     rm .ytdl -Rf 2>/dev/null
     mkdir .ytdl
-    pytube -a -t .ytdl $1
-    ffmpeg -i .ytdl/*.mp4 -ac 2 -f wav .ytdl/out.wav
+    pytube -a -t .ytdl $1 &&\
+    ffmpeg -ss 00:00:00 -to 00:59:00 -i .ytdl/*.mp4 -ac 2 -f wav .ytdl/out.wav &&\
     echo $1 >> ytdl_logs
 }
 alias joy='python3 joystick.py'
 alias cp_pub='php cp_pub.php'
+alias chop="php chop.php"

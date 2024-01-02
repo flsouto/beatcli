@@ -2,9 +2,9 @@
 
 require('utils.php');
 
-if(!is_dir("chop")) mkdir("chop");
+shell_exec("rm chop -Rf 2>/dev/null; mkdir chop");
 
-$s = sampler($argv[1]);
+$s = sampler($argv[1]??'.ytdl/out.wav');
 foreach($s->split(ceil($s->len()/60)) as $i => $p){
     echo "At $i\n";
     $p->save("chop/$i.wav");

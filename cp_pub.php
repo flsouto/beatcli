@@ -10,7 +10,7 @@ $hours = $argv[1];
 $destiny = $argv[2];
 
 foreach($wavs as $wav){
-    if(filemtime($wav) > time() - 60*60*24){
+    if(filemtime($wav) > time() - 60*60*$hours){
         passthru("cp -v $wav $destiny");
     }
 }
