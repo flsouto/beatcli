@@ -1,6 +1,7 @@
 alias make='php make.php '
 alias save='php save.php '
 alias s='php save.php '
+alias sx='PREFIX=exc php save.php;'
 alias sam='PREFIX=amb php save.php'
 alias mix='php mix.php '
 alias m='php mix.php '
@@ -32,3 +33,7 @@ ytdl() {
 alias joy='python3 joystick.py'
 alias cp_pub='php cp_pub.php'
 alias chop="php chop.php"
+
+if [[ -f realiases ]]; then
+    source realiases
+fi
