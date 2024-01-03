@@ -33,6 +33,7 @@ ytdl() {
 alias joy='python3 joystick.py'
 alias cp_pub='php cp_pub.php'
 alias chop="php chop.php"
+alias gaind="mod gain=-5 save; rep"
 
 if [[ -f realiases ]]; then
     source realiases
