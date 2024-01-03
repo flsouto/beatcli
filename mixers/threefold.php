@@ -9,14 +9,14 @@ return function($a,$b,$c){
     $c = $c->split(8);
 
 
-    $layer1 =  $b[0]()->mod('speed .5')
+    /*$layer1 =  $b[0]()->mod('speed .5')
         ->add($c[4]->mod('gain -20'))
         ->add($a[4])
         ->add($b[5])
         ->add($a[5]->mod('gain -20'))
         ->add($a[4]()->mod('speed .5'))
         ->mod('lowpass 100');
-
+    */
 
     $layer2 =  $b[1]()->mod('speed .5')
         ->add($c[2])
