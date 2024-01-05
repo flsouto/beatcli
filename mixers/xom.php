@@ -13,10 +13,12 @@ return function($a, $b,$c){
     $len = $layer->len();
     $a1->chop(mt_rand(2,3));
     $silence = $a1()->mod('gain -100');
+    if(mt_rand(0,1)) $a1->mod('tempo 2');
     $sn = $b2()->cut(0,'1/2');
     $b2 = $silence()->add($sn);
     $layer->mix($b2,false);
-    if(mt_rand(0,1)){
+    if(mt_rand(0,1)) $sn->mod('pitch 50');
+    if(!mt_rand(0,3)){
         $b3 = $silence()->x(3)->add($sn()->chop(mt_rand(2,16)));
     } else {
         $b3 = $silence()->x(3)->add($sn());
