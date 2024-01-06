@@ -102,3 +102,12 @@ function apply_fx($s){
         $fx[$k]($s);
     }
 }
+
+function x($out){
+    if($out->len() <= 9){
+        $out->x(4);
+    } else {
+        $out->x(2);
+    }
+    return $out;
+}
