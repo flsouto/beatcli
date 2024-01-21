@@ -99,13 +99,8 @@ return function ($loop1, $loop2, $loop3){
     if(rand(0,1)){
     	$s2->part('-1/16')->mod('gain -90')->sync();
     }
+	$s3->part('-2/16')->mod('gain -90')->sync();
 
-    if(rand(0,1)){
-
-    	if(rand(0,1)){
-    		$s3->part('-1/16')->mod('gain -90')->sync();
-    	}
-    }
 
     $f = $s1()->add($s2)->add($s1)->add($s3)->resize(rand(12,16));
     return $f;
