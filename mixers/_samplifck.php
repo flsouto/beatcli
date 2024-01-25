@@ -1,8 +1,18 @@
 <?php
 
-return function($a){
+return function($a, $b, $c){
 
-    if(mt_rand(0,1)) first_segment($a);
+    first_segment($a);
+    first_segment($b);
+    first_segment($c);
+    $samples = $a->split(16);
+    $samples = [...$samples, ...$b->split(16)];
+    $samples = [...$samples, ...$c->split(16)];
+    shuffle($samples);
+    $a = $a::silence(0);
+    foreach(array_slice($samples,0,mt_rand(8,16)) as $s){
+        $a->add($s);
+    }
 
     $a = $a->resize(mt_rand(1,6)/10)->mod('lowpass '.mt_rand(300,800));
     $out = $a()->add(
@@ -20,6 +30,5 @@ return function($a){
     if($out->len() < 4){
         $out->x(2);
     }
-
     return $out;
 };
