@@ -1,6 +1,9 @@
 <?php
 
 return function($a, $b, $c){
+    if($a->len() > 20) $a=$a->pick(20);
+    if($b->len() > 20) $b=$b->pick(20);
+    if($c->len() > 20) $c=$c->pick(20);
 
     first_segment($a);
     first_segment($b);

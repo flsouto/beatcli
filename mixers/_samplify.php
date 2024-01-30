@@ -2,8 +2,9 @@
 
 return function($a){
 
+    if($a->len() > 20) $a=$a->pick(20);
     if(mt_rand(0,1)) first_segment($a);
-
+    if(mt_rand(0,1)) $a->fade(0,-20);
     $a = $a->resize(mt_rand(1,6)/10)->mod('lowpass '.mt_rand(300,800));
     $out = $a()->add(
         $a()->mod('gain -5')
