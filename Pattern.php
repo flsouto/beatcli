@@ -90,11 +90,18 @@ Pattern::$pool = [
     "dabab_dbabc_",
     "cabab_d_",
     "abcabcab",
+    "abcabcaa",
     "ab_c_b__",
     "aa_b_cb_",
     "aaaaa_____b_ac__",
     "d_aa_bb_cccc____",
     "aabac_a_a_abad__",
-    "aa_ac_a_a_abac__"
+    "aa_ac_a_a_abac__",
+    "abbbcb_aabbbcac_",
+    "abbbcbaabbbcac__",
+    "a_b_bbb_c_d_d_d_",
+    "a_b_d_b_c_b_bdb_",
+    "a_b_a_b_c_b_bcbb",
+    "a_b_a_b_a_b_b_a_b_b_a_b_a_a_a_a_",
 ];
 
