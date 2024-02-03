@@ -1,8 +1,12 @@
 <?php
 
 class Pattern{
+
+    static $pool = [];
+
     protected $slen = .1;
     protected $samples = [];
+
     function __construct(protected array $pattern){}
     function with(array $samples){
         $this->samples = [...$this->samples, ...$samples];
@@ -50,10 +54,47 @@ class Pattern{
         return implode($this->pattern);
     }
 }
-function pattern($pattern){
+
+function compile_pattern($pattern){
+    preg_replace_callback("/{}/");
+}
+
+const L = 'L';
+
+function pattern($pattern=null){
+    $pool = Pattern::$pool;
+    if(isset($pool[L])){
+        $pattern = $pool[L];
+    }
+    if(!$pattern){
+        $pattern = $pool[array_rand($pool)];
+    } else if(isset($pool[$pattern])){
+        $pattern = $pool[$pattern];
+    }
     if(!is_array($pattern)){
         $pattern = str_split($pattern);
     }
+    $pattern = array_filter($pattern,'trim');
     return new Pattern($pattern);
 }
+
+
+Pattern::$pool = [
+    "a_b_a__ca_b_c___",
+    "a_b_a__ca_b_d___",
+    "a_a_b__ca_b_d___",
+    "aa__b__ca_c_d___",
+    "aa__b__aa___c___",
+    "aa__b__ad___c___",
+    "ababbabb",
+    "dabab_dbabc_",
+    "cabab_d_",
+    "abcabcab",
+    "ab_c_b__",
+    "aa_b_cb_",
+    "aaaaa_____b_ac__",
+    "d_aa_bb_cccc____",
+    "aabac_a_a_abad__",
+    "aa_ac_a_a_abac__"
+];
 
