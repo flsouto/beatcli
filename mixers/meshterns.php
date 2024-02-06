@@ -18,7 +18,7 @@ return function($a, $b, $c){
             if(empty($samples->$key)){
                 $s = pick($samples->pool);
                 $len = $s->len();
-                $samples->$key = $s->pick($len/16);
+                $samples->$key = $s->pick($len/16)->fade(0, -mt_rand(10,20));
             }
             if($samples->i > 4 && !mt_rand(0,2)){
                 return apply_fx(($samples->$key)());
