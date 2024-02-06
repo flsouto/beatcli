@@ -101,6 +101,7 @@ function apply_fx($s){
     foreach($keys as $k){
         $fx[$k]($s);
     }
+    return $s;
 }
 
 function x($out){
@@ -110,4 +111,8 @@ function x($out){
         $out->x(2);
     }
     return $out;
+}
+
+function pick(array $array){
+    return $array[array_rand($array)];
 }
