@@ -2,6 +2,12 @@ from pyjoystick.sdl2 import Key, Joystick, run_event_loop
 from subprocess import Popen
 import os, signal
 import time
+import sys
+from argparse import ArgumentParser
+
+ap = ArgumentParser()
+ap.add_argument('--mixers','-m')
+args,_ = ap.parse_known_args()
 
 def print_add(joy):
     print('Added', joy)
@@ -49,7 +55,11 @@ def next(mode = None):
     global curr_mode
     match (mode or curr_mode):
         case 1:
-            run("php", "mix.php")
+            if args.mixers:
+                from random import choice
+                run("php", "mix.php", choice(args.mixers.split(',')))
+            else:
+                run("php", "mix.php")
             curr_mode = 1
         case 2:
             run("php", "mix.php", "_bit", "chop/*.wav")

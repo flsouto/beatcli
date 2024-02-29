@@ -2,9 +2,12 @@
 
 $conf = require('config.php');
 
-$wavs = glob($conf['pub_path']."/*.wav");
 
-if(empty($argv[2])) die("Usage: cmd <hours> <destiny>\n");
+if(empty($argv[2])) die("Usage: cmd <hours> <destiny> [glob=*]\n");
+
+$glob = $argv[3] ?? '*.wav';
+$wavs = glob($conf['pub_path']."/$glob");
+
 
 $hours = $argv[1];
 $destiny = $argv[2];
