@@ -35,6 +35,9 @@ alias joy='python3 joystick.py'
 alias cp_pub='php cp_pub.php'
 alias chop="php chop.php"
 alias gaind="mod gain=-5 save; rep"
+alias 3q="smp stage.wav cut=0,3/4"
+alias 3qp="3q play"
+alias 3qs="3q save"
 
 if [[ -f realiases ]]; then
     source realiases
