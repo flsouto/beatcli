@@ -10,6 +10,7 @@ $func = require "mixers/$mixer.php";
 
 $glob = $argv[2] ?? $config['out_path']."/*.wav";
 $loops = glob($glob);
+
 shuffle($loops);
 
 $loop1 = new Sampler($loops[0]);
@@ -19,6 +20,6 @@ $loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
 $result = $func($loop1, $loop2,$loop3);
 $result->maxgain();
 $result->save(__DIR__."/stage.wav");
-
+//$result->part('3/4')->play();
 $result->play();
 
