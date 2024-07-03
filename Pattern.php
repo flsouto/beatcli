@@ -116,5 +116,9 @@ Pattern::$pool = [
     "a_a_b_a_c_b_ccba",
     "a__b_a_a_b__",
     "a__b_aca_d__",
+    'a_ba_ab_',
+    'a_bacab_',
+    'adbacabd',
+    'adcbcabd'
 ];
 
