@@ -9,17 +9,13 @@ echo "Using mixer: $mixer\n";
 $func = require "mixers/$mixer.php";
 
 $glob = $argv[2] ?? $config['out_path']."/*.wav";
-$loops = glob($glob,GLOB_BRACE);
+$loops = glob($glob);
 
 shuffle($loops);
 
-$loop1 = new Sampler($loops[0]);
-$loop2 = new Sampler($loops[1]??$loops[0]);
-$loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
-
-$result = $func($loop1, $loop2,$loop3);
+$result = $func(...array_map(fn($f) => new Sampler($f), array_slice($loops,0,6)));
 $result->maxgain();
 $result->save(__DIR__."/stage.wav");
-//$result->part('3/4')->play();
+
 $result->play();
 
