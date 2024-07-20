@@ -16,5 +16,6 @@ for f in files:
 	print(file_url(basename(f)))
 	uploaded[basename(f)] = 1
 	uploaded.save(indent=1)
-	os.system('./push.sh')
 	i+=1
+
+os.system('./push.sh')
