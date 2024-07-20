@@ -8,3 +8,5 @@ config.php
 *.mp3
 .ytdl
 realiases
+__pycache__
+.env
