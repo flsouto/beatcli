@@ -1,2 +1,4 @@
 python-dotenv
 boto3
+git+https://github.com/flsouto/looplipy@master
+git+https://github.com/flsouto/jsondb@master
