@@ -3,15 +3,21 @@ alias s='php save.php '
 alias sx='PREFIX=excs php save.php;'
 alias sam='PREFIX=amb php save.php'
 alias mix='php mix.php '
-alias m='php mix.php '
+alias m='php mix.php _oblivion'
 alias split='php split.php'
 alias pub='php pub.php'
 alias spub='php save.php; php pub.php'
-alias p='php save.php; php pub.php'
 alias pam='PREFIX=amb php save.php; PREFIX=amb php pub.php'
 alias hor='PREFIX=trkhor php pub.php'
 alias horex='PREFIX=trkhorexc php pub.php'
-alias pex='PREFIX=exc php save.php; PREFIX=exc php pub.php'
+alias horul='PREFIX=trkhorult php pub.php'
+alias horsu='PREFIX=trkhorsup php pub.php'
+alias horme='PREFIX=trkhormeg php pub.php'
+alias p='PREFIX=trk php pub.php'
+alias pex='PREFIX=trkexc php pub.php'
+alias sup='PREFIX=trksup php pub.php'
+alias ult='PREFIX=trkult php pub.php'
+alias meg='PREFIX=trkmeg php pub.php'
 alias mod='smp stage.wav '
 alias rep='play stage.wav '
 alias x2='smp stage.wav x=2'
@@ -35,7 +41,7 @@ alias gaind="mod gain=-5 save; rep"
 alias 3q="smp stage.wav cut=0,3/4"
 alias 3qp="3q play"
 alias 3qs="3q save"
-
+alias s3up="python3 s3up.py"
 if [[ -f realiases ]]; then
     source realiases
 fi
