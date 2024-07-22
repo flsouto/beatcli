@@ -32,6 +32,9 @@ Key.DOWN = "Hat 0 [Down]"
 Key.UP = "Hat 0 [Up]"
 
 proc = None
+curr_mode = 1
+tag_mode = False
+selected_tag = ''
 
 def abort():
     global proc
@@ -50,9 +53,11 @@ def run(*args,**kwargs):
 def run2(*args, **kwargs):
     return Popen(args, **kwargs)
 
-curr_mode = 1
+
 def next(mode = None):
-    global curr_mode
+    global curr_mode, tag_mode, selected_tag
+    tag_mode = False
+    selected_tag = ''
     match (mode or curr_mode):
         case 1:
             if args.mixers:
@@ -65,18 +70,32 @@ def next(mode = None):
             run("php", "mix.php", "_bit", "chop/*.wav")
 #            run("php", "mix.php", "_bit2", "../looploader/queue/*.wav")
             curr_mode = 2
+        case 3:
+            run("php", "mix.php", "meshterns")
+            curr_mode = 3
 
-def pub(prefix=None):
+def get_env(prefix):
+    global selected_tag
     env = os.environ.copy()
+
+    if selected_tag:
+        if prefix == 'amb' and selected_tag == 'amb':
+            prefix = 'hor'
+        else:
+            prefix += selected_tag
+
     if prefix:
         env['PREFIX'] = prefix
+
+    return env
+
+def pub(prefix=''):
+    env = get_env(prefix)
     run2("php", "save.php",env=env).wait()
     run2("php", "pub.php",env=env).wait()
 
-def save(prefix=None):
-    env = os.environ.copy()
-    if prefix:
-        env['PREFIX'] = prefix
+def save(prefix=''):
+    env = get_env(prefix)
     run2("php", "save.php",env=env).wait()
 
 def mod(*fx):
@@ -86,22 +105,39 @@ def mod(*fx):
 def play():
     run("play", "stage.wav")
 
+key2tag = {
+	Key.X : 'gli',
+	Key.TRIANGLE: 'tri',
+	Key.SQUARE : 'syn',
+	Key.CIRCLE : 'amb'
+}
+
 def key_received(input):
 
-    global proc, curr_mode
+    global proc, curr_mode, tag_mode, selected_tag
 
     Key.enabled = not Key.enabled
 
     if not Key.enabled: return
 
+    if tag_mode and input in key2tag:
+        selected_tag = key2tag[input]
+        print(f"tag selected: {selected_tag}")
+        tag_mode = False
+        return
+
     match input:
         case Key.R1: next(1)
         case Key.R2: next(2)
+        case Key.L1: next(3)
         case Key.START:
             if proc and not proc.poll():
                 abort()
             else:
                 play()
+        case Key.SELECT:
+            print("tag mode activated")
+            tag_mode = True
         case Key.X:
             save()
             next()
