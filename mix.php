@@ -19,7 +19,12 @@ $loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
 
 $result = $func($loop1, $loop2,$loop3);
 $result->maxgain();
-$result->save(__DIR__."/stage.wav");
+$result = $result->rate('44100');
+$f = __DIR__."/stage.wav";
+if(file_exists($f)){
+    copy($f, $f.'.bkp');
+}
+$result->save($f);
 //$result->part('3/4')->play();
 $result->play();
 
