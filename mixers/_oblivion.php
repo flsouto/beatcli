@@ -1,5 +1,5 @@
 <?php
-return function($a, $b, $c, $fade=true){
+return function($a, $b, $c, $d){
 
     $pattern1 = function($l1, $l2, $l3){
 
@@ -11,8 +11,8 @@ return function($a, $b, $c, $fade=true){
 
     	$l3 = $l3();
 
-    	$l1->mix($l2);
-    	$l1->mix($l3);
+    	$l1->mix($l2,false);
+    	$l1->mix($l3,false);
 
     	return $l1;
 
@@ -24,27 +24,40 @@ return function($a, $b, $c, $fade=true){
     $l2 = $b->resize($len);
     $l3 = $c->resize($len);
 
-    $p1 = $pattern1($l1,$l3,$l2);
-    $p2 = $pattern1($l1,$l2,$l3);
-
-
-    $m1 = $l1()->chop(16);
-    $p3 = $pattern1($m1,$l3,$l2);
-
-    $m2 = $l2()->chop(16);
-    $p4 = $pattern1($l1,$l3,$m2);
     if(mt_rand(0,1)){
-        if($fade){
-            $p3->part('14/16')->fade(0,-30)->sync();
+        $p1 = $pattern1($l1,$l3,$l2);
+        $p2 = $pattern1($l1,$l2,$l3);
+
+        $m1 = $l1()->chop(16);
+        $p3 = $pattern1($m1,$l3,$l2);
+
+        $m2 = $l2()->chop(16);
+        $p4 = $pattern1($l1,$l3,$m2);
+    } else {
+        if(mt_rand(0,1)){
+            $l4 = $d->resize($len);
+        } else {
+            $l4 = $d->resize($len/2)->x(2);
         }
+        $p1 = $pattern1($l1,$l3,$l2);
+        $p2 = $pattern1($l4,$l2,$l3);
+
+        $m1 = $l1()->chop(16);
+        $p3 = $pattern1($m1,$l3,$l2);
+
+        $m2 = $l2()->chop(16);
+        $p4 = $pattern1($l1,$l4,$m2);
+
+    }
+
+    if(mt_rand(0,1)){
+        $p3->part('14/16')->fade(0,-30)->sync();
         if(rand(0,1)) {
 //            $p4->part('15/16')->chop(16)->sync();
         }
         $out = $p4->add($p1)->add($p2)->add($p3);
     } else {
-        if($fade){
-            $p4->part('14/16')->fade(0,-30)->sync();
-        }
+        $p4->part('14/16')->fade(0,-30)->sync();
         $out = $p1->add($p2)->add($p3)->add($p4);
     }
     if(mt_rand(0,1)) $out->speed('.5');
