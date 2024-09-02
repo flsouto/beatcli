@@ -61,5 +61,17 @@ return function($a, $b, $c, $d){
         $out = $p1->add($p2)->add($p3)->add($p4);
     }
     if(mt_rand(0,1)) $out->speed('.5');
+
+    if(0 && mt_rand(0,1)){
+        $parts = $out->split(32);
+        shuffle($parts);
+        $out = $out::silence(0);
+        foreach($parts as $i => $p) {
+            echo "$i\n";
+            if(!mt_rand(0,25)) $p->chop(pow(2,mt_rand(1,4)));
+            $out->add($p);
+        }
+        $out->part('13/16')->fade(0,-30)->sync();
+    }
     return $out;
 };
