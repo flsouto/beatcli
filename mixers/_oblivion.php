@@ -11,8 +11,8 @@ return function($a, $b, $c, $d){
 
     	$l3 = $l3();
 
-    	$l1->mix($l2,false);
-    	$l1->mix($l3,false);
+    	$l1->mix($l2,true);
+    	$l1->mix($l3,true);
 
     	return $l1;
 
@@ -62,13 +62,13 @@ return function($a, $b, $c, $d){
     }
     if(mt_rand(0,1)) $out->speed('.5');
 
-    if(0 && mt_rand(0,1)){
+    if(1){
         $parts = $out->split(32);
         shuffle($parts);
         $out = $out::silence(0);
         foreach($parts as $i => $p) {
             echo "$i\n";
-            if(!mt_rand(0,25)) $p->chop(pow(2,mt_rand(1,4)));
+            if(!mt_rand(0,25)) $p->part('1/2')->chop(pow(2,mt_rand(1,4)))->sync();
             $out->add($p);
         }
         $out->part('13/16')->fade(0,-30)->sync();
