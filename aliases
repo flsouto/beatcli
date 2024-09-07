@@ -45,3 +45,7 @@ alias s3up="python3 s3up.py"
 if [[ -f realiases ]]; then
     source realiases
 fi
+alias a="php maker.php add "
+alias init="php maker.php init "
+alias j="php maker.php join "
+alias c="php maker.php change "

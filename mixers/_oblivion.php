@@ -1,5 +1,5 @@
 <?php
-return function($a, $b, $c, $d){
+return function($a, $b, $c, $d=null){
 
     $pattern1 = function($l1, $l2, $l3){
 
@@ -11,8 +11,8 @@ return function($a, $b, $c, $d){
 
     	$l3 = $l3();
 
-    	$l1->mix($l2,true);
-    	$l1->mix($l3,true);
+    	$l1->mix($l2,false);
+    	$l1->mix($l3,false);
 
     	return $l1;
 
@@ -24,7 +24,7 @@ return function($a, $b, $c, $d){
     $l2 = $b->resize($len);
     $l3 = $c->resize($len);
 
-    if(mt_rand(0,1)){
+    if(!$d || mt_rand(0,1)){
         $p1 = $pattern1($l1,$l3,$l2);
         $p2 = $pattern1($l1,$l2,$l3);
 
@@ -62,6 +62,7 @@ return function($a, $b, $c, $d){
     }
     if(mt_rand(0,1)) $out->speed('.5');
 
+    /*
     if(1){
         $parts = $out->split(32);
         shuffle($parts);
@@ -72,6 +73,6 @@ return function($a, $b, $c, $d){
             $out->add($p);
         }
         $out->part('13/16')->fade(0,-30)->sync();
-    }
+    } */
     return $out;
 };
