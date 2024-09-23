@@ -46,3 +46,4 @@ if [[ -f realiases ]]; then
     source realiases
 fi
 alias m2="php maker2.php"
+alias m3="php maker3.php"
