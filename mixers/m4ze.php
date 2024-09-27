@@ -10,7 +10,15 @@ return function($a,$b){
     $a = $a->split($size);
     $b = $b->split($size);
     $normal = mt_rand(0,2);
-
+    $speeder = null;
+    if(!mt_rand(0,2)){
+        if(mt_rand(0,1)){
+            $speeder = mt_rand(0,1) ? fn() => 'tempo' : fn() => 'speed';
+        } else {
+            $speeder = fn() => mt_rand(0,1) ? 'tempo' : 'speed';
+        }
+        $speeder_rate = mt_rand(1,4);
+    }
     for($i=1;$i<=$size;$i++){
         $s = array_shift($a);
         $t = array_shift($b);
@@ -31,6 +39,12 @@ return function($a,$b){
             break;
             case 3:
                 $layer1->add($s()->gain('-100'));
+                if($speeder && !mt_rand(0,$speeder_rate) && !empty($b)){
+                    $t->mod($speeder().' 2')->add(
+                        $b[0]()->mod($speeder().' 2')
+                    );
+                }
+
                 $layer2->add($t);
             break;
         }
