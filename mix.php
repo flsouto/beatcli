@@ -9,7 +9,7 @@ echo "Using mixer: $mixer\n";
 $func = require "mixers/$mixer.php";
 
 $glob = $argv[2] ?? $config['out_path']."/*.wav";
-$loops = glob($glob);
+$loops = glob($glob,GLOB_BRACE);
 
 shuffle($loops);
 
