@@ -4,7 +4,10 @@ require_once("utils.php");
 $conf = require('config.php');
 
 $loops = glob($conf['ipt_glob'],GLOB_BRACE);
-srand($argv[1]??time());
+
+$baseseed = crc32(date('Y-m-d'));
+
+srand($baseseed+($argv[1]??time()));
 shuffle($loops);
 
 $dummy = sampler(array_pop($loops));
@@ -32,7 +35,7 @@ for($i=0;$i<=15;$i++){
     echo "LEN: $fmtlen ($total_len)\n";
     if(!empty($seeds) && $seeds[0][0] <= $fmtlen){
         echo 'USE seed '.$seeds[0][1].' at '.$seeds[0][0]."\n";
-        srand($seeds[0][1]);
+        srand($baseseed + $seeds[0][1]);
         array_shift($seeds);
         shuffle($loops);
         $last_seed_at = $fmtlen;
