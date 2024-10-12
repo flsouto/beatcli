@@ -48,7 +48,7 @@ alias 3qs="3q save"
 alias f='m meshterns'
 alias e='m patterns'
 alias b='php mix.php _bit "chop/*.wav"'
-alias g='php mix.php _guit "chop/*.wav"'
+alias g='php mix.php _genesis "chop/*.wav"'
 alias a='php mix.php _samplify "pub/*.wav"'
 
 if [[ -f realiases ]]; then

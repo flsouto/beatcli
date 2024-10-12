@@ -30,6 +30,8 @@ return function($a){
         return $p1->add($p2);
     };
 
-    return $phatk($a)->x(4);
+    $result = $phatk($a)->x(4);
+    $result->keepgain = true;
+    return $result;
 
 };
