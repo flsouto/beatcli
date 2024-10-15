@@ -11,6 +11,7 @@ return function($a){
         $arr[] = $s;
     }
 
-    return $s::join($arr)->x(4);
-
+    $o = $s::join($arr)->x(4);
+    $o->keepgain = true;
+    return $o;
 };

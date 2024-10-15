@@ -3,6 +3,10 @@ use FlSouto\Sampler;
 require_once(__DIR__."/utils.php");
 
 if(($argv[1]??'')=='rand') $argv[1] = null;
+if(empty($argv[1]) && getenv('loopmixer')){
+    $argv[1] = getenv('loopmixer');
+}
+
 $mixer = $argv[1] ?? array_rand(mixers());
 echo "Using mixer: $mixer\n";
 
