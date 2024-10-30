@@ -30,7 +30,7 @@ alias x2s='smp stage.wav x=2 save'
 alias x4='smp stage.wav x=4'
 alias x4p='smp stage.wav x=4 play'
 alias x4s='smp stage.wav x=4 save'
-alias b='m _bit "pool/*.wav"'
+alias b='m samplicat "pool/*.wav"'
 ytdl() { 
     rm .ytdl -Rf 2>/dev/null
     mkdir .ytdl
@@ -47,9 +47,9 @@ alias 3qp="3q play"
 alias 3qs="3q save"
 alias f='m meshterns'
 alias e='m patterns'
-alias b='php mix.php _bit "chop/*.wav"'
+alias b='php mix.php samplicat "chop/*.wav"'
 alias g='php mix.php _genesis "chop/*.wav"'
-alias a='php mix.php _samplify "pub/*.wav"'
+alias a='php mix.php samplify "pub/*.wav"'
 
 if [[ -f realiases ]]; then
     source realiases
