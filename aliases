@@ -50,5 +50,5 @@ alias m3="php maker3.php"
 alias mlg="php mix.php looppelganger"
 alias mlg2="php mix.php blacknoise"
 alias mlg3="php mix.php blacknoise2"
-alias mlg3="php mix.php genesis"
+alias mlg4="php mix.php genesis"
 alias slg='PREFIX=trklg php pub.php'
