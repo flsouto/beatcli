@@ -3,7 +3,8 @@
 return function($a,$b){
 
     if(mt_rand(0,1)) $a->mod('oops');
-    if(mt_rand(0,1)){
+    if($a->len() < 60 && mt_rand(0,1)){
+        echo 'YYYYYY';
         first_segment($a);
         first_segment($b);
         $b->resize($a->len());
