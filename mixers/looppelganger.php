@@ -1,6 +1,7 @@
 <?php
 
 return function($a,$b){
+
     if(mt_rand(0,1)) $a->mod('oops');
     if(mt_rand(0,1)){
         first_segment($a);
