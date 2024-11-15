@@ -13,10 +13,13 @@ return function($a,$b){
 
     $speed = mt_rand(2,6)/10;
     $len = $a->len() / $speed;
-    $repeat = floor(((mt_rand(8,15) * 60) / $len)) -1;
-    $a = $a->x($repeat);
+    $repeat = floor(((15 * 60) / $len));
+    if(!getenv('preview')){
+        $a = $a->x($repeat);
+    }
 
-    $a->mod('speed '.$speed.' lowpass '.mt_rand(200,600).' delay .'.($d=mt_rand(2,6)));
+    $a->mod("speed $speed lowpass ".mt_rand(200,600).' delay .'.($d=mt_rand(2,6)));
+
     $a->cut(0,'-.'.$d);
 
     if($a->len() > 40){

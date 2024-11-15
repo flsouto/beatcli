@@ -11,7 +11,12 @@ $func = require "mixers/$mixer.php";
 $glob = $argv[2] ?? $config['ipt_glob'];
 $loops = glob($glob,GLOB_BRACE);
 
+
+$seed = date('Ymd') + (getenv('seed')??time());
+echo 'SEED: '.$seed;
+srand($seed);
 shuffle($loops);
+
 
 $loop1 = new Sampler($loops[0]);
 $loop2 = new Sampler($loops[1]??$loops[0]);
