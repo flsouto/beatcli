@@ -51,13 +51,17 @@ return function($a, $b, $c, $d=null){
     }
 
     if(mt_rand(0,1)){
-        $p3->part('14/16')->fade(0,-30)->sync();
+        if(!getenv('nofade')){
+            $p3->part('14/16')->fade(0,-30)->sync();
+        }
         if(rand(0,1)) {
 //            $p4->part('15/16')->chop(16)->sync();
         }
         $out = $p4->add($p1)->add($p2)->add($p3);
     } else {
-        $p4->part('14/16')->fade(0,-30)->sync();
+        if(!getenv('nofade')){
+            $p4->part('14/16')->fade(0,-30)->sync();
+        }
         $out = $p1->add($p2)->add($p3)->add($p4);
     }
     if(mt_rand(0,1)) $out->speed('.5');

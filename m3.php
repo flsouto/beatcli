@@ -4,7 +4,7 @@ require_once("utils.php");
 $conf = require('config.php');
 
 $loops = glob($conf['ipt_glob'],GLOB_BRACE);
-srand($argv[1]??time());
+srand(date('Ymd') + ($argv[1]??time()) );
 shuffle($loops);
 
 $a = sampler(array_shift($loops));
