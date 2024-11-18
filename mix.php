@@ -32,5 +32,7 @@ if(file_exists($f)){
 }
 $result->save($f);
 //$result->part('3/4')->play();
-$result->play();
+if(!getenv('noplay')){
+    $result->play();
+}
 
