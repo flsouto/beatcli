@@ -12,7 +12,7 @@ $glob = $argv[2] ?? $config['ipt_glob'];
 $loops = glob($glob,GLOB_BRACE);
 
 
-$seed = date('Ymd') + (getenv('seed')?:time());
+$seed = date('Ymd') . (getenv('seed')?:time());
 echo 'SEED: '.$seed."\n";
 srand($seed);
 shuffle($loops);
