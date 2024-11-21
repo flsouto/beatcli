@@ -33,6 +33,6 @@ if(file_exists($f)){
 $result->save($f);
 //$result->part('3/4')->play();
 if(!getenv('noplay')){
-    $result->play();
+    shell_exec('play stage.wav');
 }
 
