@@ -47,6 +47,8 @@ if [[ -f realiases ]]; then
 fi
 alias m2="php maker2.php"
 alias m3="php maker3.php"
+alias m4="php maker4.php"
+alias m4s="php maker4.php save"
 alias mlg="php mix.php looppelganger"
 alias mlg2="php mix.php blacknoise"
 alias mlg3="php mix.php blacknoise2"
