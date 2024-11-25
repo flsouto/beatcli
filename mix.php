@@ -2,6 +2,10 @@
 use FlSouto\Sampler;
 require_once(__DIR__."/utils.php");
 
+if($seed=getenv('seed')){
+    srand($seed);
+}
+
 if(($argv[1]??'')=='rand') $argv[1] = null;
 if(empty($argv[1]) && getenv('loopmixer')){
     $argv[1] = getenv('loopmixer');
@@ -20,6 +24,10 @@ shuffle($loops);
 $loop1 = new Sampler($loops[0]);
 $loop2 = new Sampler($loops[1]??$loops[0]);
 $loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
+
+if($mseed=getenv('mseed')){
+    srand($mseed);
+}
 
 $result = $func($loop1, $loop2,$loop3);
 if(empty($result->keepgain) && !getenv('keepgain')){
