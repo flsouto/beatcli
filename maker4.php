@@ -31,13 +31,19 @@ if($arg=='finish'){
 }
 
 shell_exec("rm stage-layer*.wav");
-shell_exec("noplay=1 php mix.php");
+
+function gen(){
+    shell_exec("noplay=1 php mix.php");
+    $st = new FlSouto\Sampler("stage.wav");
+    $st->resize(16);
+    return $st;
+}
+
+$st = gen();
 
 $layer = mt_rand(1,3);
-
-$st = new FlSouto\Sampler("stage.wav");
-$st->resize(16);
 $st->save("stage-layer$layer.wav");
+
 
 function mixlayer($layer, $to){
     global $arg;
