@@ -21,6 +21,20 @@ if($arg=='clear'){
     shell_exec('rm stage*.wav');
     return;
 }
+if($arg=='export'){
+    $to = $argv[2]??'';
+    if(!$to || !is_dir($to)){
+        die("usage: cmd export <destination>\n");
+    }
+    $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
+    foreach($stages as $stage){
+        $md5 = md5(file_get_contents($stage));
+        copy($stage, $f="$to/$md5.wav");
+        echo "Saving $f \n";
+    }
+    return;
+}
+
 
 if($arg=='finish'){
     $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
