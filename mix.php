@@ -16,14 +16,33 @@ echo "Using mixer: $mixer\n";
 
 $func = require "mixers/$mixer.php";
 
-$glob = $argv[2] ?? $config['out_path']."/*.wav";
-$loops = glob($glob,GLOB_BRACE);
+$globs = $argv[2] ?? $config['out_path']."/*.wav";
 
-shuffle($loops);
+$groups = [];
+foreach(explode(';',$globs) as $glob){
+    $loops = glob($glob, GLOB_BRACE);
+    shuffle($loops);
+    $groups[] = $loops;
+}
 
-$loop1 = new Sampler($loops[0]);
-$loop2 = new Sampler($loops[1]??$loops[0]);
-$loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
+if(empty($groups)){
+    die("No loops found\n");
+}
+
+function pick_loop($index){
+    global $groups;
+    while(!isset($groups[$index])){
+        $index--;
+        if($index < 0){
+            break;
+        }
+    }
+    return array_shift($groups[$index]);
+}
+
+$loop1 = new Sampler(pick_loop(0));
+$loop2 = new Sampler(pick_loop(1));
+$loop3 = new Sampler(pick_loop(2));
 
 if($mseed=getenv('mseed')){
     srand($mseed);
