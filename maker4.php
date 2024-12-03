@@ -44,18 +44,54 @@ if($arg=='finish'){
     return;
 }
 
+if($arg=='remix'){
+    $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
+    $out = [];
+    foreach($stages as $stage){
+        $stage = new FlSouto\Sampler($stage);
+        switch(mt_rand(1,3)){
+            case 1 :
+                $out[] = $stage;
+            break;
+            case 2:
+                $out[] = $stage->split(2)[0];
+            break;
+            case 3:
+                if($prev){
+                    [$a,$_,$c,$_] = $stage->split(4);
+                    [$_,$b,$_,$d] = $prev->split(4);
+                    $out[] = $a::join([$a,$b,$c,$d]);
+                } else {
+                    $out[] = $stage;
+                }
+            break;
+        }
+        $prev = $stage;
+    }
+    FlSouto\Sampler::join($out)->play();
+}
+
+
 shell_exec("rm stage-layer*.wav");
 
 function gen(){
-    shell_exec("noplay=1 php mix.php");
+    $pattern = getenv('p')?:'rand';
+    $source = getenv('s')?:'';
+    if($source){
+        $source = "'$source'";
+    }
+    shell_exec("noplay=1 php mix.php $pattern $source");
     $st = new FlSouto\Sampler("stage.wav");
+    if($m=getenv('m')){
+        $st->mod($m);
+    }
     $st->resize(16);
     return $st;
 }
 
 $st = gen();
 
-$layer = mt_rand(1,3);
+$layer = getenv('l') ?: mt_rand(1,3);
 $st->save("stage-layer$layer.wav");
 
 
@@ -79,7 +115,6 @@ $out = FlSouto\Sampler::silence(0);
 mixlayer(1,$out);
 mixlayer(2,$out);
 mixlayer(3,$out);
-
 
 $out->save($f="stage.wav");
 
