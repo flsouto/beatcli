@@ -13,12 +13,15 @@ if($arg=='save'){
     $f = glob("stage-layer*.wav")[0];
     $f2 = str_replace('stage-','',$f);
     rename($f, $f2);
+    mkdir("snap$next");
+    shell_exec("cp layer*.wav snap$next");
     return;
 }
 if($arg=='clear'){
     shell_exec("rm stage-layer*.wav");
     shell_exec("rm layer*.wav");
     shell_exec('rm stage*.wav');
+    shell_exec('rm snap* -Rf');
     return;
 }
 if($arg=='export'){
@@ -38,9 +41,9 @@ if($arg=='export'){
 
 if($arg=='finish'){
     $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
-    $head = new FlSouto\Sampler("layer".mt_rand(1,3).".wav");
-    $head->fade(0,-40);
-    shell_exec("sox ".implode(" ",$stages)." $head->file stage.wav; play stage.wav");
+    $tail = new FlSouto\Sampler("layer".(getenv('tail')?:mt_rand(1,3)).".wav");
+    $tail->fade(0,-40);
+    shell_exec("sox ".implode(" ",$stages)." $tail->file stage.wav; play stage.wav");
     return;
 }
 
