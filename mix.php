@@ -24,7 +24,9 @@ $loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
 $loop4 = new Sampler($loops[3]??$loops[2]??$loops[1]??$loops[0]);
 
 $result = $func($loop1, $loop2,$loop3,$loop4);
-$result->maxgain();
+if(empty($result->keepgain)){
+    $result->maxgain();
+}
 $result->save(__DIR__."/stage.wav");
 //$result->part('3/4')->play();
 
