@@ -83,7 +83,8 @@ function gen(){
     if($source){
         $source = "'$source'";
     }
-    shell_exec("noplay=1 php mix.php $pattern $source");
+    $keepgain=getenv('keepgain')?'1':'';
+    shell_exec("noplay=1 keepgain=$keepgain php mix.php $pattern $source");
     $st = new FlSouto\Sampler("stage.wav");
     if($m=getenv('m')){
         $st->mod($m);
