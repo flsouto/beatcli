@@ -43,6 +43,7 @@ for($i=0;$i<=15;$i++){
     $loop = array_shift($loops);
 
     echo "At $i of ".count($loops)."\n";
+    echo $loop."\n";
     $base = $layers[0]();
     if(!mt_rand(0,5)){
         echo 'XXXXXXXX'.PHP_EOL;
@@ -77,7 +78,7 @@ for($i=0;$i<=15;$i++){
     if(mt_rand(0,1)){
         shuffle($layers);
     }
-    $layers[mt_rand(0,2)] = sampler($loop)->resize($len);
+    $layers[$k=mt_rand(0,2)] = sampler($loop)->resize($len);
     if($chopped && mt_rand(0,1)){
         $mixers = ['m3troid','m4ze'];
         $mixer = $mixers[array_rand($mixers)];
