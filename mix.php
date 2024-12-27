@@ -57,6 +57,9 @@ $f = __DIR__."/stage.wav";
 if(file_exists($f)){
     copy($f, $f.'.bkp');
 }
+if($mod=getenv('m')){
+    $result->mod($mod);
+}
 $result->save($f);
 //$result->part('3/4')->play();
 if(!getenv('noplay')){
