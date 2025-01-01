@@ -11,7 +11,7 @@ return function($a,$b,$c){
         if(mt_rand(0,1)) $r->oops();
         if(mt_rand(0,1)) $r->pitch(mt_rand(0,300));
     }
-    $r->gain('-5');
+    $r->gain('-2');
     if($r->len() > 7){
         $r->speed(mt_rand(10,20)/10);
     }
