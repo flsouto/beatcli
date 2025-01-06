@@ -37,7 +37,11 @@ function pick_loop($index){
             break;
         }
     }
-    return array_shift($groups[$index]);
+    $loop = array_shift($groups[$index]);
+    if(empty($groups[$index])){
+        $groups[$index][] = $loop;
+    }
+    return $loop;
 }
 
 $loop1 = new Sampler(pick_loop(0));
