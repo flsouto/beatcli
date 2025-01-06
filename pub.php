@@ -14,6 +14,6 @@ if(!is_dir($path)){
 
 $out = Sampler::select(__DIR__."/stage.wav");
 $hash = $out->hash();
-$out->save($f=$path."/$prefix$hash.mp3");
+$out->save($f=$path."/$prefix$hash.wav");
 echo "Saving to $f\n";
 

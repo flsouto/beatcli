@@ -43,6 +43,9 @@ if($arg=='finish'){
     $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
     $tail = new FlSouto\Sampler("layer".(getenv('tail')?:mt_rand(1,3)).".wav");
     $tail->fade(0,-40);
+    if($len = getenv('len')){
+        $tail->resize($len);
+    }
     shell_exec("sox ".implode(" ",$stages)." $tail->file stage.wav; play stage.wav");
     return;
 }
@@ -119,6 +122,10 @@ $out = FlSouto\Sampler::silence(0);
 mixlayer(1,$out);
 mixlayer(2,$out);
 mixlayer(3,$out);
+
+if($len=getenv('len')){
+    $out->resize($len);
+}
 
 $out->save($f="stage.wav");
 
