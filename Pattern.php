@@ -144,6 +144,21 @@ Pattern::$pool = [
     'a_a_b_a___a_b___',
     'aa_baa_baa_baa_a',
     'ab_ab_ab_ab_a_b_',
-    'ab_ab_ab_ab_baaa'
+    'ab_ab_ab_ab_baaa',
+    'a___b__a_aa_b___',
+    'aaaabaababaabbbb',
+    'baaabaaabaab_b_b',
+    'a_aba_a_aba_b_b_',
+    'aa_ab_aa_a_abab_',
+    'abbaaaabbaaaa_b_',
+    'a__ab_a___abab__',
+    'a_a___b__a_ba__b',
+    'babab_babab_bab_',
+    'babab_bab_babab_',
+    'abbaaabb',
+    'a_ba_bb_',
+    'a_ba_bbaabbabbbb',
+    'a_ba_ab_',
+    'aa_bb_aa_bbbbbb_'
 ];
 

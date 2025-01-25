@@ -54,6 +54,7 @@ alias mass='for i in {1..100}; do echo AT $i; noplay=1 m; s; done;'
 alias loop='play stage.wav repeat 999'
 alias mel='m melodize stage.wav'
 alias ben='m bender stage.wav'
+alias tun='m _tunefy stage.wav'
 
 if [[ -f realiases ]]; then
     source realiases
