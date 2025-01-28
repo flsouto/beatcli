@@ -50,31 +50,9 @@ if($arg=='finish'){
     return;
 }
 
-if($arg=='remix'){
-    $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
-    $out = [];
-    foreach($stages as $stage){
-        $stage = new FlSouto\Sampler($stage);
-        switch(mt_rand(1,3)){
-            case 1 :
-                $out[] = $stage;
-            break;
-            case 2:
-                $out[] = $stage->split(2)[0];
-            break;
-            case 3:
-                if($prev){
-                    [$a,$_,$c,$_] = $stage->split(4);
-                    [$_,$b,$_,$d] = $prev->split(4);
-                    $out[] = $a::join([$a,$b,$c,$d]);
-                } else {
-                    $out[] = $stage;
-                }
-            break;
-        }
-        $prev = $stage;
-    }
-    FlSouto\Sampler::join($out)->play();
+if($arg=='rebuild'){
+    build();
+    return;
 }
 
 
@@ -98,19 +76,29 @@ function gen(){
 
 $st = gen();
 
-$layer = getenv('l') ?: mt_rand(1,3);
+$layer = getenv('l') ?: pick_layer();
 $st->save("stage-layer$layer.wav");
 
 
+function pick_layer(){
+    for($i=1;$i<=3;$i++){
+        if(!file_exists("layer$i.wav")){
+            return $i;
+        }
+    }
+    return mt_rand(1,3);
+}
+
 function mixlayer($layer, $to){
-    global $arg;
     $s = null;
-    if(file_exists($f="stage-layer$layer.wav")){
+    if(getenv('solo')!=$layer && file_exists($f="stage-layer$layer.wav")){
         $s = new FlSouto\Sampler($f);
     } else if(file_exists($f="layer$layer.wav")){
         $s = new FlSouto\Sampler($f);
+    } else {
+        return false;
     }
-    if($arg === "chop$layer"){
+    if(getenv('chop')==$layer){
         $s->chop(16);
     }
     if($s){
@@ -118,15 +106,26 @@ function mixlayer($layer, $to){
     }
 }
 
-$out = FlSouto\Sampler::silence(0);
-mixlayer(1,$out);
-mixlayer(2,$out);
-mixlayer(3,$out);
+function build(){
 
-if($len=getenv('len')){
-    $out->resize($len);
+    $out = FlSouto\Sampler::silence(0);
+
+    if($i = getenv('solo')){
+        mixlayer($i, $out);
+    } else {
+        for($i=1;$i<=9;$i++){
+            mixlayer($i,$out);
+        }
+    }
+
+    if($len=getenv('len')){
+        $out->resize($len);
+    }
+
+    $out->save($f="stage.wav");
+
+    return $out;
+
 }
 
-$out->save($f="stage.wav");
-
-shell_exec("play $f");
+build()->play();

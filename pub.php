@@ -12,8 +12,13 @@ if(!is_dir($path)){
     mkdir($path,0777,true);
 }
 
+$ext = 'mp3';
+if(strstr($path,'album')){
+    $ext = 'wav';
+}
+
 $out = Sampler::select(__DIR__."/stage.wav");
 $hash = $out->hash();
-$out->save($f=$path."/$prefix$hash.wav");
+$out->save($f=$path."/$prefix$hash.$ext");
 echo "Saving to $f\n";
 

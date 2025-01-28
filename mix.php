@@ -27,6 +27,11 @@ $result = $func($loop1, $loop2,$loop3,$loop4);
 if(empty($result->keepgain) && !getenv('keepgain')){
     $result->maxgain();
 }
+
+if($m=getenv('m')){
+    $result->mod($m);
+}
+
 $result->save(__DIR__."/stage.wav");
 //$result->part('3/4')->play();
 
