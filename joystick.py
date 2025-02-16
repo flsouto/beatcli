@@ -59,7 +59,7 @@ def next(mode = None):
                 from random import choice
                 run("php", "mix.php", choice(args.mixers.split(',')))
             else:
-                run("php", "mix.php")
+                run("php", "mix.php", "_oblivion")
             curr_mode = 1
         case 2:
             run("php", "mix.php", "_bit", "chop/*.wav")
@@ -70,7 +70,7 @@ def pub(prefix=None):
     env = os.environ.copy()
     if prefix:
         env['PREFIX'] = prefix
-    run2("php", "save.php",env=env).wait()
+    #run2("php", "save.php",env=env).wait()
     run2("php", "pub.php",env=env).wait()
 
 def save(prefix=None):
@@ -103,19 +103,16 @@ def key_received(input):
             else:
                 play()
         case Key.X:
-            save()
+            pub('trksup')
             next()
         case Key.SQUARE:
-            pub()
+            pub('trkult')
             next()
         case Key.TRIANGLE:
-            if curr_mode == 1:
-                pub('exc')
-            else:
-                save('excs')
+            pub('trkmeg')
             next()
         case Key.CIRCLE:
-            pub('amb')
+            pub('trkexc')
             next()
         case Key.RIGHT:
             mod("repeat", "1")
