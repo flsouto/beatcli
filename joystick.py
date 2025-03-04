@@ -51,8 +51,13 @@ def run2(*args, **kwargs):
     return Popen(args, **kwargs)
 
 curr_mode = 1
+select = False
+
 def next(mode = None):
-    global curr_mode
+    global curr_mode, select
+
+    select = False
+
     match (mode or curr_mode):
         case 1:
             if args.mixers:
@@ -86,9 +91,10 @@ def mod(*fx):
 def play():
     run("play", "stage.wav")
 
+
 def key_received(input):
 
-    global proc, curr_mode
+    global proc, curr_mode, select
 
     Key.enabled = not Key.enabled
 
@@ -97,27 +103,45 @@ def key_received(input):
     match input:
         case Key.R1: next(1)
         case Key.R2: next(2)
+        case Key.L1:
+            pub("trkmegfst")
+            next()
         case Key.START:
             if proc and not proc.poll():
                 abort()
             else:
                 play()
+        case Key.SELECT:
+            select = True
+            run("play" , "select.mp3")
         case Key.X:
-            pub('trksup')
+            if not select:
+                pub('trksup')
+            else:
+                pub('trkhorsup')
             next()
         case Key.SQUARE:
-            pub('trkult')
+            if not select:
+                pub('trkult')
+            else:
+                pub('trkhorult')
             next()
         case Key.TRIANGLE:
-            pub('trkmeg')
+            if not select:
+                pub('trkmeg')
+            else:
+                pub('trkhormeg')
             next()
         case Key.CIRCLE:
-            pub('trkexc')
+            if not select:
+                pub('trkexc')
+            else:
+                pub('trkhorexc')
             next()
         case Key.RIGHT:
             mod("repeat", "1")
             play()
-        case Key.DOWN:
+        case Key.L2:
             mod("gain", "-5")
             play()
         case Key.UP:
