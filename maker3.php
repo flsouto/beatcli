@@ -95,7 +95,8 @@ for($i=0;$i<=15;$i++){
 }
 $parts[] = $layers[2]->fade(0,-40)->file;
 
-exec("sox ".implode(" ", $parts)." stage.wav; play stage.wav trim ".$last_seed_at);
+$m = getenv('m');
 
-// 125 BPM Song Made With Loop Pack 2025-04-01 | 13 first loops used
+exec("sox ".implode(" ", $parts)." stage.wav $m; play stage.wav trim ".$last_seed_at);
+
 
