@@ -4,7 +4,7 @@ require_once("utils.php");
 $conf = require('config.php');
 
 $loops = glob($conf['ipt_glob'],GLOB_BRACE);
-$baseseed = crc32(date('Y-m-d'));
+$baseseed = crc32('m3'.date('Y-m-d'));
 
 srand($baseseed+($argv[1]??time()));
 shuffle($loops);
