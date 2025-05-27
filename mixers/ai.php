@@ -17,6 +17,8 @@ return function(...$loops) {
         $selected_pattern = $ai_patterns[array_rand($ai_patterns)];
     }
     
+    echo "Using AI pattern: ".basename(str_replace('.php', '', $selected_pattern))."\n";
+
     // Load and execute the selected pattern
     $pattern = require($selected_pattern);
     return $pattern(...$loops);

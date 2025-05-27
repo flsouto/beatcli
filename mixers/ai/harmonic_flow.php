@@ -72,5 +72,5 @@ return function($a, $b) {
     $var2 = $out();
     $var2->mod('pitch -2');
     
-    return $a::join([$final, $var1, $var2]);
+    return $a::join([$final, $var1, $var2, $final]);
 }; 
