@@ -79,6 +79,7 @@ return function($a, $b) {
     
     // Original
     $variations[] = $base;
+    $variations[] = $base;
     
     // Upward variation
     $up = $base();

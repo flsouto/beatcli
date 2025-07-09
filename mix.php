@@ -7,6 +7,7 @@ if($seed=getenv('seed')){
 }
 
 if(($argv[1]??'')=='rand') $argv[1] = null;
+
 if(empty($argv[1]) && getenv('loopmixer')){
     $argv[1] = getenv('loopmixer');
 }
