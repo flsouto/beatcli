@@ -163,6 +163,14 @@ Pattern::$pool = [
     'ab_baab_',
     'a_b_b_ab_bb__b__',
     'aa_a_aa_',
-    'a_baca__'
+    'a_baca__',
+
+    // GENERATED PATTERNS
+    'a_b_ab__c_d_a_d_',
+    'a_a_b___aba_d_b_',
+    'aaa_b_abcbcab___',
+    'a___cba_a_a_a___',
+    'a_a_bbb_cbd_d_d_',
+    'aab_b__ca_b_c_b_'
 ];
 
