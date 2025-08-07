@@ -13,6 +13,9 @@ if(empty($argv[1]) && getenv('loopmixer')){
 }
 
 $mixer = $argv[1] ?? array_rand(mixers());
+$mixer = explode(',',$mixer);
+$mixer = $mixer[array_rand($mixer)];
+
 echo "Using mixer: $mixer\n";
 
 $func = require "mixers/$mixer.php";
