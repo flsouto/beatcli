@@ -64,8 +64,13 @@ return function($a, $b, $c, $d=null){
         }
         $out = $p1->add($p2)->add($p3)->add($p4);
     }
-    if(mt_rand(0,1)) $out->speed('.5');
-
+    if(mt_rand(0,1) && !getenv('noslow')) $out->speed('.5');
+    if($len=getenv('oblen')){
+        $out = $out->resize($len);
+    }
+    if(getenv('obfrag')){
+        $out = $out->split(4)[mt_rand(0,3)];
+    }
     /*
     if(1){
         $parts = $out->split(32);

@@ -41,10 +41,16 @@ if($arg=='export'){
 
 if($arg=='finish'){
     $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
-    $tail = new FlSouto\Sampler("layer".(getenv('tail')?:mt_rand(1,3)).".wav");
-    $tail->fade(0,-40);
-    if($len = getenv('len')){
-        $tail->resize($len);
+
+    if(getenv('notail')){
+        $tail = FlSouto\Sampler::silence(0);
+    } else {
+        $tail = new FlSouto\Sampler("layer".(getenv('tail')?:mt_rand(1,3)).".wav");
+        $tail->fade(0,-40);
+        if($len = getenv('len')){
+            $tail->resize($len);
+        }
+
     }
     shell_exec("sox ".implode(" ",$stages)." $tail->file stage.wav; play stage.wav");
     return;
