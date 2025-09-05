@@ -116,7 +116,7 @@ function mixlayer($layer, $to){
             $x = $c;
             $y = $d;
         }
-        $r = fn() => pow(2,mt_rand(1,4));
+        $r = fn() => pow(2,mt_rand(1,getenv('remax')?:4));
         $x->part('-1/'.$r())->chop($r())->sync();
         $y->part('-1/'.$r())->chop($r())->sync();
         $s = $s::join([$a,$b,$c,$d]);
