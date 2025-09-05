@@ -104,8 +104,22 @@ function mixlayer($layer, $to){
     } else {
         return false;
     }
-    if(getenv('chop')==$layer){
+    if(getenv('chop')==$layer || getenv('chop')=='rand'){
         $s->chop(16);
+    }
+    if(getenv('remix')==$layer || getenv('remix')=='rand'){
+        [$a,$b,$c,$d] = $s->split(4);
+        if(mt_rand(0,1)){
+            $x = $b;
+            $y = $d;
+        } else {
+            $x = $c;
+            $y = $d;
+        }
+        $r = fn() => pow(2,mt_rand(1,4));
+        $x->part('-1/'.$r())->chop($r())->sync();
+        $y->part('-1/'.$r())->chop($r())->sync();
+        $s = $s::join([$a,$b,$c,$d]);
     }
     if($s){
         $to->mix($s, false);
