@@ -1,6 +1,6 @@
 alias make='php make.php '
 alias save='php save.php '
-alias s='php save.php '
+#alias s='php save.php '
 alias sx='PREFIX=excs php save.php;'
 alias sam='PREFIX=amb php save.php'
 alias mix='php mix.php '
@@ -45,7 +45,7 @@ alias gaind="mod gain=-5 save; rep"
 alias 3q="smp stage.wav cut=0,3/4"
 alias 3qp="3q play"
 alias 3qs="3q save"
-alias f='m meshterns'
+#alias f='m meshterns'
 alias e='m patterns'
 alias b='php mix.php samplicat "pub2/*.wav"'
 alias g='php mix.php genesis "chop/*.wav"'
