@@ -68,14 +68,20 @@ if(file_exists($f)){
 if($mod=getenv('m')){
     $result->mod($mod);
 }
+if($size=getenv('resize')){
+    $result->resize($size);
+}
+
 $result->save($f);
 //$result->part('3/4')->play();
+
 
 if($fx=getenv('c')){
     foreach(explode(',',$fx) as $m){
         shell_exec("m= c= noplay=1 php mix.php $m stage.wav");
     }
 }
+
 
 if(!getenv('noplay')){
     shell_exec('play stage.wav');
