@@ -15,7 +15,12 @@ $len = $dummy->len();
 for($i=1;$i<=2;$i++){
     $layers[] = sampler(array_pop($loops))->resize($len);
 }
-$parts[] = $dummy()->fade(-30,0)->file;
+if(getenv('nofade')){
+    $parts[] = $dummy()->file;
+} else {
+    $parts[] = $dummy()->fade(-30,0)->file;
+}
+
 $norm = false;
 $total_len = 0;
 

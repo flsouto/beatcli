@@ -5,16 +5,23 @@ require_once("utils.php");
 $arg = $argv[1]??'';
 
 if($arg=='save'){
-    $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
-    $next = count($stages) + 1;
-    copy("stage.wav",$f="stage$next.wav");
+    if(file_exists('.m4edit')){
+        $stage = file_get_contents('.m4edit');
+    } else {
+        $stages = glob("stage{".implode(',',range(1,99))."}.wav",GLOB_BRACE);
+        $stage = count($stages) + 1;
+    }
+
+    copy("stage.wav",$f="stage$stage.wav");
     echo "Saved $f\n";
 
     $f = glob("stage-layer*.wav")[0];
     $f2 = str_replace('stage-','',$f);
     rename($f, $f2);
-    mkdir("snap$next");
-    shell_exec("cp layer*.wav snap$next");
+    if(!is_dir($d="snap$stage")){
+        mkdir($d);
+    }
+    shell_exec("cp layer*.wav snap$stage");
     return;
 }
 if($arg=='clear'){
@@ -22,6 +29,7 @@ if($arg=='clear'){
     shell_exec("rm layer*.wav");
     shell_exec('rm stage*.wav');
     shell_exec('rm snap* -Rf');
+    shell_exec('rm .m4edit');
     return;
 }
 if($arg=='export'){
@@ -55,6 +63,7 @@ if($arg=='finish'){
     shell_exec("sox ".implode(" ",$stages)." $tail->file stage.wav; play stage.wav");
     return;
 }
+
 
 if($arg=='rebuild'){
     build();
@@ -140,6 +149,10 @@ function build(){
 
     if($len=getenv('len')){
         $out->resize($len);
+    }
+
+    if($cut=getenv('cut')){
+        $out->cut(0,$cut);
     }
 
     $out->save($f="stage.wav");
