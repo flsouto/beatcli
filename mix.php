@@ -14,7 +14,7 @@ $loops = glob($glob,GLOB_BRACE);
 
 $seed = date('Ymd') . (getenv('seed')?:time());
 echo 'SEED: '.$seed."\n";
-srand($seed);
+srand((int)$seed);
 shuffle($loops);
 
 
