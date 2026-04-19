@@ -13,7 +13,6 @@ $loops = glob($glob,GLOB_BRACE);
 
 
 $seed = date('Ymd') . (getenv('seed')?:time());
-echo 'SEED: '.$seed."\n";
 srand((int)$seed);
 shuffle($loops);
 
@@ -37,6 +36,8 @@ if($m=getenv('m')){
 
 $result->save(__DIR__."/stage.wav");
 //$result->part('3/4')->play();
+
+echo 'SEED: '.$seed."\n";
 
 if(!getenv('noplay')){
     $result->play();
