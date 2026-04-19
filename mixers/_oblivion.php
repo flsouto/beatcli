@@ -1,7 +1,16 @@
 <?php
 return function($a, $b, $c, $d=null){
 
-    $pattern1 = function($l1, $l2, $l3){
+    $remix = mt_rand(1,1) ? require(__DIR__."/remix.php") : null;
+    $remix_always = mt_rand(0,1);
+    $remix_after = mt_rand(0,1);
+    $pattern1 = function($l1, $l2, $l3) use($remix, $remix_always, $remix_after){
+
+        if($remix && !$remix_after && ($remix_always || mt_rand(0,1))){
+            $l1 = $remix($l1());
+            $l2 = $remix($l2());
+            $l3 = $remix($l3());
+        }
 
     	$l1 = $l1()->cut(0,'1/4')->x(2);
     	$l1->add($l1()->mod('gain -100'));
@@ -10,6 +19,12 @@ return function($a, $b, $c, $d=null){
     	$l2->part('-1/4')->fade(0,-50)->sync();
 
     	$l3 = $l3();
+
+        if($remix && $remix_after && ($remix_always || mt_rand(0,1))){
+            $l1 = $remix($l1);
+            $l2 = $remix($l2);
+            $l3 = $remix($l3);
+        }
 
     	$l1->mix($l2,false);
     	$l1->mix($l3,false);

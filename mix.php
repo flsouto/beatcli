@@ -23,6 +23,9 @@ $loop2 = new Sampler($loops[1]??$loops[0]);
 $loop3 = new Sampler($loops[2]??$loops[1]??$loops[0]);
 $loop4 = new Sampler($loops[3]??$loops[2]??$loops[1]??$loops[0]);
 
+if(getenv('mseed')){
+    srand(getenv('mseed'));
+}
 $result = $func($loop1, $loop2,$loop3,$loop4);
 if(empty($result->keepgain) && !getenv('keepgain')){
     $result->maxgain();
