@@ -37,7 +37,9 @@ if($m=getenv('m')){
 $result->save(__DIR__."/stage.wav");
 //$result->part('3/4')->play();
 
+$seed = substr($seed,8);
 echo 'SEED: '.$seed."\n";
+file_put_contents('.last_seed', $seed);
 
 if(!getenv('noplay')){
     $result->play();
