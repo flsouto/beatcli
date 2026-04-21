@@ -1,15 +1,23 @@
 <?php
 return function($a, $b, $c, $d=null){
 
-    $remix = mt_rand(1,1) ? require(__DIR__."/remix.php") : null;
+    $remix_f = require(__DIR__."/remix.php");
+
+    $remix = mt_rand(1,1) ? function($s,$is_last=false) use($remix_f) {
+        if($is_last){
+            $s->skip_last_remix = true;
+        }
+        return $remix_f($s);
+    } : null;
+
     $remix_always = mt_rand(0,1);
     $remix_after = mt_rand(0,1);
-    $pattern1 = function($l1, $l2, $l3) use($remix, $remix_always, $remix_after){
+    $pattern1 = function($l1, $l2, $l3, $is_last=false) use($remix, $remix_always, $remix_after){
 
         if($remix && !$remix_after && ($remix_always || mt_rand(0,1))){
-            $l1 = $remix($l1());
-            $l2 = $remix($l2());
-            $l3 = $remix($l3());
+            $l1 = $remix($l1(),$is_last);
+            $l2 = $remix($l2(),$is_last);
+            $l3 = $remix($l3(),$is_last);
         }
 
     	$l1 = $l1()->cut(0,'1/4')->x(2);
@@ -21,9 +29,9 @@ return function($a, $b, $c, $d=null){
     	$l3 = $l3();
 
         if($remix && $remix_after && ($remix_always || mt_rand(0,1))){
-            $l1 = $remix($l1);
-            $l2 = $remix($l2);
-            $l3 = $remix($l3);
+            $l1 = $remix($l1,$is_last);
+            $l2 = $remix($l2,$is_last);
+            $l3 = $remix($l3,$is_last);
         }
 
     	$l1->mix($l2,false);
@@ -39,15 +47,17 @@ return function($a, $b, $c, $d=null){
     $l2 = $b->resize($len);
     $l3 = $c->resize($len);
 
+    $ends_with = mt_rand(0,1) ? 'p3' : 'p4';
+
     if(!$d || mt_rand(0,1)){
         $p1 = $pattern1($l1,$l3,$l2);
         $p2 = $pattern1($l1,$l2,$l3);
 
         $m1 = $l1()->chop(16);
-        $p3 = $pattern1($m1,$l3,$l2);
+        $p3 = $pattern1($m1,$l3,$l2, $ends_with=='p3');
 
         $m2 = $l2()->chop(16);
-        $p4 = $pattern1($l1,$l3,$m2);
+        $p4 = $pattern1($l1,$l3,$m2, $ends_with=='p4');
     } else {
         if(mt_rand(0,1)){
             $l4 = $d->resize($len);
@@ -58,14 +68,14 @@ return function($a, $b, $c, $d=null){
         $p2 = $pattern1($l4,$l2,$l3);
 
         $m1 = $l1()->chop(16);
-        $p3 = $pattern1($m1,$l3,$l2);
+        $p3 = $pattern1($m1,$l3,$l2, $ends_with=='p3');
 
         $m2 = $l2()->chop(16);
-        $p4 = $pattern1($l1,$l4,$m2);
+        $p4 = $pattern1($l1,$l4,$m2, $ends_with=='p4');
 
     }
 
-    if(mt_rand(0,1)){
+    if($ends_with=='p3'){
         if(!getenv('nofade')){
             $p3->part('14/16')->fade(0,-30)->sync();
         }

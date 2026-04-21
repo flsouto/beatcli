@@ -15,7 +15,9 @@ return function($s) {
     $r = fn() => pow(2,mt_rand(1,getenv('remax')?:4));
     $f = fn($s) => mt_rand(0,1) ? $s->chop($r()) : $s->reverse();
     $f($x->part('-1/'.$r()))->sync();
-    $f($y->part('-1/'.$r()))->sync();
+    if(!isset($s->skip_last_remix)){
+        $f($y->part('-1/'.$r()))->sync();
+    }
 
     return $s::join([$a,$b,$c,$d]);
 
