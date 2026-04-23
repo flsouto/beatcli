@@ -16,6 +16,7 @@ return function($s) {
     $f = fn($s) => mt_rand(0,1) ? $s->chop($r()) : $s->reverse();
     $f($x->part('-1/'.$r()))->sync();
     if(!isset($s->skip_last_remix)){
+        if(mt_rand(0,2)) $f = fn($s) => $s->{mt_rand(0,1)?'reverb':'oops'}();
         $f($y->part('-1/'.$r()))->sync();
     }
 
