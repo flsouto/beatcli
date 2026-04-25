@@ -1,7 +1,11 @@
 <?php
 return function($a, $b, $c, $d=null){
 
-    $remix_f = require(__DIR__."/remix.php");
+    if(mt_rand(0,1)){
+        $remix_f = require(__DIR__."/".pick(['remix','remix2']).".php");
+    } else {
+        $remix_f = fn($s) => (require(__DIR__."/".pick(['remix','remix2']).".php"))($s);
+    }
 
     $remix = mt_rand(1,1) ? function($s,$is_last=false) use($remix_f) {
         if($is_last){
@@ -15,9 +19,9 @@ return function($a, $b, $c, $d=null){
     $pattern1 = function($l1, $l2, $l3, $is_last=false) use($remix, $remix_always, $remix_after){
 
         if($remix && !$remix_after && ($remix_always || mt_rand(0,1))){
-            $l1 = $remix($l1(),$is_last);
-            $l2 = $remix($l2(),$is_last);
-            $l3 = $remix($l3(),$is_last);
+            $l1 = $remix($l1,$is_last);
+            $l2 = $remix($l2,$is_last);
+            $l3 = $remix($l3,$is_last);
         }
 
     	$l1 = $l1()->cut(0,'1/4')->x(2);

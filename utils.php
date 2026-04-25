@@ -89,7 +89,10 @@ function get_fxs(){
         },
         'flanger' => function($s){
             $s->mod('flanger');
-        }
+        },
+        'oops' => function($s) {
+            $s->oops();
+        },
     ];
 }
 
