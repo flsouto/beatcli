@@ -117,7 +117,7 @@ function mixlayer($layer, $to){
         $s->chop(16);
     }
     if(getenv('remix')==$layer || getenv('remix')=='rand'){
-        $s = (require('mixers/remix.php'))($s);
+        $s = (require('mixers/remix'.(mt_rand(0,1)?'':'2').'.php'))($s);
     }
     if($s){
         $to->mix($s, false);
