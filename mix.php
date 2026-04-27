@@ -75,6 +75,9 @@ if($size=getenv('resize')){
 $result->save($f);
 //$result->part('3/4')->play();
 
+if(file_exists($f=__DIR__.'/.last_meshtern')){
+    unlink($f);
+}
 
 if($fx=getenv('c')){
     foreach(explode(',',$fx) as $m){
