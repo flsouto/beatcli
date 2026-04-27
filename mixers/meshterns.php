@@ -20,7 +20,7 @@ return function($a, $b, $c){
                 $len = $s->len();
                 $samples->$key = $s->pick($len/16)->fade(0, -mt_rand(10,20));
             }
-            if($samples->i > 1 && !mt_rand(0,2)){
+            if($samples->i > 1 && !mt_rand(0,2) && !getenv('nofx')){
                 return apply_fx(($samples->$key)());
             }
             return $samples->$key;
@@ -51,6 +51,7 @@ return function($a, $b, $c){
     }
 
     echo "p1:".implode($p1)."\np2:".implode($p2)."\nmx:".implode($meshed)."\n";
+    file_put_contents('.last_meshtern', implode($meshed));
 
     $p = (new Pattern($meshed))->with($with);
     $p->resize(mt_rand(5,16)/10);

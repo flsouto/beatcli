@@ -20,4 +20,7 @@ if($prefix && is_dir($pdir=__DIR__."/$prefix")){
 }
 
 echo "Saving to ".str_replace(__DIR__."/","",$f)."\n";
-
+if(stristr($hash,'x') && file_exists($f=__DIR__."/.last_meshtern")){
+    file_put_contents("saved_meshterns", $m=file_get_contents($f), FILE_APPEND);
+    echo "New meshtern added: $m\n";
+}
