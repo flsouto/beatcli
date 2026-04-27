@@ -178,3 +178,7 @@ Pattern::$pool = [
     'aa__a_a_b_baa___'
 ];
 
+if($src=getenv('psrc')){
+  Pattern::$pool = array_map('trim',file($src));
+  echo "Using $src with ".count(Pattern::$pool)." patterns\n";
+}
