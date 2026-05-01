@@ -23,11 +23,11 @@ return function($a,$b,$c){
     $a = $s;
     $speed = mt_rand(2,3)/10;
     $len = $a->len() / $speed;
-//    $repeat = floor(((mt_rand(8,15) * 60) / $len)) -1;
- //   $a = $a->x($repeat);
+    $repeat = floor(((mt_rand(8,9) * 60) / $len)) -1;
+    $a = $a->x($repeat);
     $a->mod('reverb speed '.$speed.' lowpass '.mt_rand(400,600).' delay .'.($d=mt_rand(2,6)));
     $a->cut(0,'-.'.$d);
-    $a->keepgain = true;
+    $a->keepgain = false;
     return $a;
 };
 
