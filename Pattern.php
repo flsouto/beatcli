@@ -181,4 +181,6 @@ Pattern::$pool = [
 if($src=getenv('psrc')){
   Pattern::$pool = array_map('trim',file($src));
   echo "Using $src with ".count(Pattern::$pool)." patterns\n";
+} else {
+  Pattern::$pool = [...Pattern::$pool, ...array_map('trim',file('saved_meshterns'))];
 }
