@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/../Pattern.php");
 
-function machilea() {
+$machilea = function() {
 
     $patterns = Pattern::$pool;
     $patterns = array_values(array_filter($patterns,fn($p) => strlen($p) == 16));
@@ -98,9 +98,9 @@ function machilea() {
 
     return $generatePattern($allowedPerPos, $order);
 
-}
+};
 
-return function($a, $b, $c){
+return function($a, $b, $c) use($machilea){
 
     $a->resize($len1=mt_rand(2,8));
     $b->resize($len2=mt_rand(2,8));
@@ -152,7 +152,7 @@ return function($a, $b, $c){
         echo "p1:".implode($p1)."\np2:".implode($p2);
         $result = implode($meshed);
     } else {
-        $result = machilea();
+        $result = $machilea();
     }
 
     echo "\nmx:".$result."\n";
