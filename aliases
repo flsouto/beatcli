@@ -61,3 +61,4 @@ alias mlg4="php mix.php genesis"
 alias mlg5="php mix.php looppelganger2"
 alias slg='PREFIX=trklg php pub.php'
 alias x2ob='php x2obliv.php'
+alias mlg6="m4 clear; len=113 m='reverb oops highpass 666 delay .06 gain 10' m4"
